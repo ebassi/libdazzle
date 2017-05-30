@@ -1,6 +1,6 @@
 project('libdazzle', 'c',
   version: '0.1.0',
-  meson_version: '>= 0.36.0',
+  meson_version: '>= 0.40.1',
 )
 
 config_h = configuration_data()
