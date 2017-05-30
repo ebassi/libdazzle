@@ -12,7 +12,7 @@ configure_file(
   configuration: config_h,
 )
 
-add_global_arguments([
+add_project_arguments([
   '-DHAVE_CONFIG_H',
   '-DDAZZLE_COMPILATION',
 ], language: 'c')
