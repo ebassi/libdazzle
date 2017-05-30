@@ -21,20 +21,21 @@ version_data.set('DZL_MINOR_VERSION', dazzle_version_minor)
 version_data.set('DZL_MICRO_VERSION', dazzle_version_micro)
 version_data.set('DZL_VERSION', meson.project_version())
 
-dzl_version_h = configure_file(
+configure_file(
           input: 'dzl-version.h.in',
          output: 'dzl-version.h',
     install_dir: libdazzle_header_dir,
         install: true,
   configuration: version_data)
 
-libdazzle_generated_headers = [
-  dzl_version_h,
-]
+libdazzle_generated_headers = []
 
-libdazzle_public_headers = [
-  'dazzle.h',
-]
+install_headers('dazzle.h', subdir: libdazzle_header_subdir)
+
+# Filled out in the subdirs
+libdazzle_public_headers = []
+libdazzle_public_sources = []
+libdazzle_private_sources = []
 
 subdir('actions')
 subdir('animation')
@@ -54,139 +55,10 @@ subdir('tree')
 subdir('util')
 subdir('widgets')
 
-libdazzle_public_sources = [
-  'actions/dzl-child-property-action.c',
-  'actions/dzl-settings-flag-action.c',
-  'actions/dzl-widget-action-group.c',
-
-  'animation/dzl-animation.c',
-  'animation/dzl-box-theatric.c',
-
-  'app/dzl-application.c',
-
-  'bindings/dzl-binding-group.c',
-  'bindings/dzl-signal-group.c',
-
-  'cache/dzl-task-cache.c',
-
-  'files/dzl-directory-model.c',
-  'files/dzl-directory-reaper.c',
-
-  'fuzzy/dzl-fuzzy-index-builder.c',
-  'fuzzy/dzl-fuzzy-index-cursor.c',
-  'fuzzy/dzl-fuzzy-index-match.c',
-  'fuzzy/dzl-fuzzy-index.c',
-
-  'menus/dzl-menu-manager.c',
-
-  'panel/dzl-dock-bin-edge.c',
-  'panel/dzl-dock-bin.c',
-  'panel/dzl-dock-item.c',
-  'panel/dzl-dock-manager.c',
-  'panel/dzl-dock-overlay-edge.c',
-  'panel/dzl-dock-overlay.c',
-  'panel/dzl-dock-paned.c',
-  'panel/dzl-dock-revealer.c',
-  'panel/dzl-dock-stack.c',
-  'panel/dzl-dock-transient-grab.c',
-  'panel/dzl-dock-widget.c',
-  'panel/dzl-dock-window.c',
-  'panel/dzl-dock.c',
-  'panel/dzl-tab-strip.c',
-  'panel/dzl-tab.c',
-
-  'settings/dzl-settings-sandwich.c',
-
-  'shortcuts/dzl-shortcut-accel-dialog.c',
-  'shortcuts/dzl-shortcut-chord.c',
-  'shortcuts/dzl-shortcut-context.c',
-  'shortcuts/dzl-shortcut-controller.c',
-  'shortcuts/dzl-shortcut-label.c',
-  'shortcuts/dzl-shortcut-manager.c',
-  'shortcuts/dzl-shortcut-model.c',
-  'shortcuts/dzl-shortcut-theme-editor.c',
-  'shortcuts/dzl-shortcut-theme-load.c',
-  'shortcuts/dzl-shortcut-theme-save.c',
-  'shortcuts/dzl-shortcut-theme.c',
-  'shortcuts/dzl-shortcuts-group.c',
-  'shortcuts/dzl-shortcuts-section.c',
-  'shortcuts/dzl-shortcuts-shortcut.c',
-  'shortcuts/dzl-shortcuts-window.c',
-
-  'statemachine/dzl-state-machine-buildable.c',
-  'statemachine/dzl-state-machine.c',
-
-  'suggestions/dzl-suggestion-entry-buffer.c',
-  'suggestions/dzl-suggestion-entry.c',
-  'suggestions/dzl-suggestion-popover.c',
-  'suggestions/dzl-suggestion-row.c',
-  'suggestions/dzl-suggestion.c',
-
-  'tree/dzl-tree-builder.c',
-  'tree/dzl-tree.c',
-  'tree/dzl-tree-node.c',
-
-  'util/dzl-cairo.c',
-  'util/dzl-counter.c',
-  'util/dzl-date-time.c',
-  'util/dzl-dnd.c',
-  'util/dzl-file-manager.c',
-  'util/dzl-heap.c',
-  'util/dzl-pango.c',
-  'util/dzl-rgba.c',
-  'util/dzl-util.c',
-
-  'theming/dzl-css-provider.c',
-  'theming/dzl-theme-manager.c',
-
-  'widgets/dzl-bin.c',
-  'widgets/dzl-bolding-label.c',
-  'widgets/dzl-box.c',
-  'widgets/dzl-centering-bin.c',
-  'widgets/dzl-column-layout.c',
-  'widgets/dzl-elastic-bin.c',
-  'widgets/dzl-empty-state.c',
-  'widgets/dzl-entry-box.c',
-  'widgets/dzl-file-chooser-entry.c',
-  'widgets/dzl-list-box.c',
-  'widgets/dzl-multi-paned.c',
-  'widgets/dzl-pill-box.c',
-  'widgets/dzl-priority-box.c',
-  'widgets/dzl-progress-button.c',
-  'widgets/dzl-progress-menu-button.c',
-  'widgets/dzl-progress-icon.c',
-  'widgets/dzl-radio-box.c',
-  'widgets/dzl-scrolled-window.c',
-  'widgets/dzl-search-bar.c',
-  'widgets/dzl-simple-label.c',
-  'widgets/dzl-simple-popover.c',
-  'widgets/dzl-slider.c',
-  'widgets/dzl-stack-list.c',
-  'widgets/dzl-three-grid.c',
-]
-
 libdazzle_sources = [
   libdazzle_generated_headers,
   libdazzle_public_sources,
-
-  'animation/dzl-frame-source.c',
-
-  'fuzzy/dzl-fuzzy-index-private.h',
-  'fuzzy/dzl-fuzzy-util.c',
-  'fuzzy/dzl-fuzzy-util.h',
-
-  'panel/dzl-dock-bin-edge-private.h',
-  'panel/dzl-dock-paned-private.h',
-  'panel/dzl-tab-private.h',
-
-  'shortcuts/dzl-shortcut-closure-chain.c',
-
-  'tree/dzl-tree-private.h',
-
-  'util/dzl-util-private.h',
-
-  'widgets/dzl-rect-helper.c',
-
+  libdazzle_private_sources,
   libdazzle_resources,
 ]
 
@@ -251,17 +123,6 @@ if get_option('with_introspection')
 
   endif
 endif
-
-# TODO: This is ugly and should be handled upstream
-#foreach header: libdazzle_public_headers
-#  header_split = header.split('/')
-#  if header_split.length() == 2
-#    header_path = join_paths(libdazzle_header_subdir, header_split[0])
-#    install_headers(header, subdir: header_path)
-#  else
-#    install_headers(header, subdir: libdazzle_header_subdir)
-#  endif
-#endforeach
 
 pkgg = import('pkgconfig')
 
