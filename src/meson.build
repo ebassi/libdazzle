@@ -304,11 +304,12 @@ libdazzle = shared_library(
   'dazzle-' + libdazzle_api_version,
   libdazzle_sources,
 
-  link_depends: 'dazzle.map',
-        c_args: libdazzle_args,
-     link_args: [ '-Wl,--version-script,' + join_paths(meson.current_source_dir(), 'dazzle.map') ],
-  dependencies: libdazzle_deps,
-       install: true,
+         link_depends: 'dazzle.map',
+               c_args: libdazzle_args,
+            link_args: [ '-Wl,--version-script,' + join_paths(meson.current_source_dir(), 'dazzle.map') ],
+         dependencies: libdazzle_deps,
+  include_directories: [ root_inc, src_inc ],
+              install: true,
 )
 
 libdazzle_dep = declare_dependency(
