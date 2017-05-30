@@ -81,6 +81,7 @@ libdazzle = shared_library(
   'dazzle-' + libdazzle_api_version,
   libdazzle_sources,
 
+            soversion: 0,
          link_depends: libdazzle_map,
                c_args: libdazzle_args,
             link_args: [ '-Wl,--version-script,' + libdazzle_map ],
